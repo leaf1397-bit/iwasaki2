@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>山主のみなさまへ | ○○林業株式会社</title>
+  <meta name="description" content="山林の管理・相続・再造林など、山のことならお気軽にご相談ください。大隅半島で70年の経験でお応えします。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <style>
+    :root {
+      --ink: #141f14;
+      --forest: #1e3a24;
+      --moss: #2d5a3d;
+      --sage: #4a8c5c;
+      --sage-light: #6aaa7a;
+      --cream: #f7f4ef;
+      --offwhite: #faf8f4;
+      --white: #ffffff;
+      --border: #e2ddd6;
+      --border-dark: #c8c2b8;
+      --gold: #b89a52;
+      --gold-light: #d4b878;
+      --text-main: #1a2618;
+      --text-sub: #4a5e46;
+      --text-muted: #8a9e86;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text-main); background: var(--offwhite); -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== Navigation ===== */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: var(--white); border-bottom: 1px solid var(--border); transition: box-shadow .3s; }
+    .nav.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,.06); }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: .1em; color: var(--ink); }
+    .nav-logo span { color: var(--sage); font-style: italic; }
+    .nav-menu { display: none; gap: 28px; list-style: none; }
+    .nav-menu a { font-size: 12px; letter-spacing: .08em; color: var(--text-sub); transition: color .2s; }
+    .nav-menu a:hover, .nav-menu a.active { color: var(--sage); }
+    .nav-ham { display: flex; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav-ham span { display: block; height: 1px; border-radius: 1px; background: var(--ink); transition: transform .3s, opacity .3s; }
+    .nav-ham span:nth-child(1) { width: 22px; }
+    .nav-ham span:nth-child(2) { width: 16px; }
+    .nav-ham span:nth-child(3) { width: 22px; }
+    .nav-ham.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); width: 22px; }
+    .nav-ham.open span:nth-child(2) { opacity: 0; }
+    .nav-ham.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); width: 22px; }
+
+    /* ===== Mobile Menu ===== */
+    .mobile-menu { position: fixed; top: 57px; left: 0; right: 0; bottom: 0; z-index: 99; background: var(--white); padding: 32px 24px; transform: translateX(100%); transition: transform .35s cubic-bezier(.4,0,.2,1); overflow-y: auto; }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu ul { list-style: none; display: flex; flex-direction: column; }
+    .mobile-menu li { border-bottom: 1px solid var(--border); }
+    .mobile-menu a { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; font-size: 15px; letter-spacing: .06em; color: var(--text-main); }
+    .mobile-menu a i { font-size: 14px; color: var(--text-muted); }
+
+    /* ===== Breadcrumb ===== */
+    .breadcrumb { display: flex; align-items: center; gap: 6px; padding: 10px 24px; background: var(--white); border-bottom: 1px solid var(--border); margin-top: 57px; }
+    .bc { font-size: 10px; color: var(--text-muted); letter-spacing: .04em; }
+    .bc.current { color: var(--text-sub); }
+    .bc-sep { font-size: 10px; color: var(--border-dark); }
+
+    /* ===== Hero ===== */
+    .hero {
+      background: var(--forest);
+      padding: 52px 24px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-texture { position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 48px, rgba(255,255,255,.012) 48px, rgba(255,255,255,.012) 49px), repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(255,255,255,.012) 48px, rgba(255,255,255,.012) 49px); }
+    .hero-img { position: absolute; inset: 0; }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; opacity: .3; mix-blend-mode: luminosity; }
+    .hero-overlay { position: absolute; inset: 0; background: rgba(10,24,12,.55); }
+    .hero-img-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 9px; letter-spacing: .15em; color: rgba(255,255,255,.12); text-transform: uppercase; }
+    .hero-eyebrow { position: relative; font-size: 8px; letter-spacing: .25em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .hero-eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--gold); }
+    .hero-h1 { position: relative; font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 9vw, 44px); font-weight: 300; color: #f0ede8; line-height: 1.2; letter-spacing: -.01em; margin-bottom: 10px; }
+    .hero-h1 em { font-style: italic; color: var(--gold-light); }
+    .hero-sub { position: relative; font-size: 13px; line-height: 1.8; color: rgba(240,237,232,.65); font-weight: 300; }
+
+    /* ===== Section Label ===== */
+    .sec-label { font-size: 8px; letter-spacing: .22em; color: var(--text-muted); text-transform: uppercase; display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ===== お悩みセクション ===== */
+    .worries { padding: 48px 24px 44px; background: var(--white); }
+    .worry-lead {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.35;
+      margin-bottom: 24px;
+    }
+    .worry-list { display: flex; flex-direction: column; }
+    .worry-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .worry-item:last-child { border: none; }
+    .worry-check {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--forest);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .worry-check i { font-size: 13px; color: rgba(240,237,232,.9); }
+    .worry-text { font-size: 17px; color: var(--text-main); font-weight: 400; line-height: 1.5; }
+
+    /* ===== 相談の流れ ===== */
+    .flow { padding: 40px 24px 44px; background: var(--cream); }
+    .flow-steps { display: flex; flex-direction: column; }
+    .flow-step { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .flow-step:last-child { border: none; }
+    .flow-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--forest);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; font-weight: 300;
+      color: #f0ede8;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .flow-content h3 { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; letter-spacing: .02em; }
+    .flow-content p { font-size: 12px; line-height: 1.75; color: var(--text-sub); font-weight: 300; }
+    .flow-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 6px;
+      font-size: 10px;
+      color: var(--sage);
+      background: #f0faf4;
+      border: 1px solid rgba(74,140,92,.2);
+      border-radius: 2px;
+      padding: 2px 8px;
+      letter-spacing: .06em;
+    }
+
+    /* ===== フォームセクション ===== */
+    .form-sec { padding: 48px 24px 56px; background: var(--white); }
+    .form-sec-head { margin-bottom: 28px; }
+    .form-sec-head h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 400;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .form-sec-head h2 em { font-style: italic; color: var(--sage); }
+    .form-sec-head p { font-size: 13px; line-height: 1.8; color: var(--text-sub); font-weight: 300; }
+
+    /* フォーム共通 */
+    .form-wrap { display: flex; flex-direction: column; gap: 18px; }
+    .form-section-title {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-main);
+      letter-spacing: .04em;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .form-required {
+      font-size: 9px;
+      color: var(--white);
+      background: var(--sage);
+      border-radius: 2px;
+      padding: 1px 6px;
+      letter-spacing: .06em;
+    }
+    .form-optional {
+      font-size: 9px;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 1px 6px;
+      letter-spacing: .06em;
+    }
+    .form-input {
+      height: 48px;
+      border: 1px solid var(--border-dark);
+      border-radius: 3px;
+      padding: 0 14px;
+      font-size: 15px;
+      color: var(--text-main);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--offwhite);
+      width: 100%;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      -webkit-appearance: none;
+    }
+    .form-input:focus { border-color: var(--sage); box-shadow: 0 0 0 3px rgba(74,140,92,.08); }
+    .form-input::placeholder { color: var(--text-muted); font-size: 13px; }
+    .form-select {
+      height: 48px;
+      border: 1px solid var(--border-dark);
+      border-radius: 3px;
+      padding: 0 14px;
+      font-size: 15px;
+      color: var(--text-main);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--offwhite);
+      width: 100%;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a9e86' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      transition: border-color .2s;
+    }
+    .form-select:focus { border-color: var(--sage); outline: none; }
+    .form-textarea {
+      height: 120px;
+      border: 1px solid var(--border-dark);
+      border-radius: 3px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--text-main);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--offwhite);
+      width: 100%;
+      resize: vertical;
+      line-height: 1.7;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .form-textarea:focus { border-color: var(--sage); box-shadow: 0 0 0 3px rgba(74,140,92,.08); }
+    .form-textarea::placeholder { color: var(--text-muted); font-size: 13px; }
+    .form-divider { height: 1px; background: var(--border); }
+
+    /* ファイル添付 */
+    .form-file-box {
+      border: 1.5px dashed var(--border-dark);
+      border-radius: 3px;
+      padding: 22px 18px;
+      background: var(--offwhite);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .form-file-box:hover { border-color: var(--sage); background: #f4faf6; }
+    .form-file-icon {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .form-file-icon i { font-size: 18px; color: var(--sage); }
+    .form-file-main { font-size: 13px; font-weight: 500; color: var(--text-main); }
+    .form-file-sub { font-size: 12px; color: var(--text-muted); line-height: 1.65; }
+    .form-file-btn {
+      height: 36px;
+      padding: 0 16px;
+      background: var(--white);
+      border: 1px solid var(--border-dark);
+      border-radius: 3px;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--text-sub);
+      letter-spacing: .06em;
+      cursor: pointer;
+    }
+    .form-file-note { font-size: 10px; color: var(--text-muted); line-height: 1.6; }
+    .form-file-input { display: none; }
+
+    /* プライバシー */
+    .privacy-note {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 14px 16px;
+      font-size: 12px;
+      line-height: 1.75;
+      color: var(--text-muted);
+    }
+    .privacy-note a { color: var(--sage); border-bottom: 1px solid rgba(74,140,92,.25); }
+
+    /* 送信ボタン */
+    .form-submit {
+      height: 54px;
+      background: var(--forest);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+      letter-spacing: .12em;
+      color: #f0ede8;
+      font-weight: 400;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+      transition: background .2s;
+    }
+    .form-submit:hover { background: var(--moss); }
+    .form-submit i { font-size: 16px; color: rgba(240,237,232,.7); }
+    .form-submit-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px; letter-spacing: .04em; }
+
+    /* ===== Success Message ===== */
+    .form-success {
+      display: none;
+      background: #f0faf4;
+      border: 1px solid rgba(74,140,92,.3);
+      border-radius: 3px;
+      padding: 28px 20px;
+      text-align: center;
+    }
+    .form-success.show { display: block; }
+    .form-success i { font-size: 36px; color: var(--sage); margin-bottom: 12px; }
+    .form-success h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--ink); margin-bottom: 8px; }
+    .form-success p { font-size: 13px; color: var(--text-sub); line-height: 1.75; font-weight: 300; }
+
+    /* ===== Animations ===== */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== Footer ===== */
+    footer { background: var(--ink); padding: 40px 24px 24px; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: .1em; color: #f0ede8; margin-bottom: 24px; }
+    .footer-logo span { color: var(--sage-light); font-style: italic; }
+    .footer-nav { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-bottom: 24px; list-style: none; }
+    .footer-nav a { font-size: 11px; color: rgba(240,237,232,.4); letter-spacing: .06em; font-weight: 300; transition: color .2s; }
+    .footer-nav a:hover { color: rgba(240,237,232,.8); }
+    .footer-copy { font-size: 10px; color: rgba(240,237,232,.18); letter-spacing: .06em; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.06); }
+
+    /* ===== Desktop ===== */
+    @media (min-width: 768px) {
+      .nav-ham { display: none; }
+      .nav-menu { display: flex; }
+      .breadcrumb { margin-top: 61px; }
+      .hero { padding: 72px 48px 60px; }
+      .worries { padding: 64px 48px 56px; max-width: 760px; margin: 0 auto; }
+      .flow { padding: 56px 48px 60px; }
+      .flow-steps { max-width: 640px; margin: 0 auto; }
+      .form-sec { padding: 64px 48px 72px; }
+      .form-wrap { max-width: 640px; margin: 0 auto; }
+      .form-sec-head { max-width: 640px; margin: 0 auto 32px; }
+      footer { padding: 56px 48px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">大隅<span>林業</span></a>
+    <ul class="nav-menu">
+      <li><a href="about.html">私たちについて</a></li>
+      <li><a href="business.html">事業紹介</a></li>
+      <li><a href="landowners.html" class="active">山主のみなさまへ</a></li>
+      <li><a href="community.html">地域の取り組み</a></li>
+      <li><a href="company.html">会社情報</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+    <button class="nav-ham" id="navHam" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="about.html">私たちについて <i class="ti ti-chevron-right"></i></a></li>
+      <li><a href="business.html">事業紹介 <i class="ti ti-chevron-right"></i></a></li>
+      <li><a href="landowners.html">山主のみなさまへ <i class="ti ti-chevron-right"></i></a></li>
+      <li><a href="community.html">地域の取り組み <i class="ti ti-chevron-right"></i></a></li>
+      <li><a href="niketo/index.html">niketo <i class="ti ti-chevron-right"></i></a></li>
+      <li><a href="company.html">会社情報 <i class="ti ti-chevron-right"></i></a></li>
+      <li><a href="contact.html">お問い合わせ <i class="ti ti-chevron-right"></i></a></li>
+    </ul>
+  </div>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="index.html" class="bc">ホーム</a>
+    <span class="bc-sep">/</span>
+    <span class="bc current">山主のみなさまへ</span>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-texture"></div>
+    <div class="hero-img">
+      <!-- <img src="images/landowners-hero.jpg" alt="山・森"> -->
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-img-hint">山・森の写真</div>
+    <div class="hero-eyebrow">For Landowners</div>
+    <div class="hero-h1">山のことなら、<br><em>ご相談ください。</em></div>
+    <div class="hero-sub">どんな些細なことでも構いません。<br>フォームからお気軽にお問い合わせください。</div>
+  </section>
+
+  <!-- お悩みセクション -->
+  <section class="worries reveal">
+    <div class="sec-label">こんなお悩みはありませんか</div>
+    <div class="worry-lead">山のこと、<br>一人で抱えていませんか？</div>
+    <div class="worry-list">
+      <div class="worry-item">
+        <div class="worry-check"><i class="ti ti-check"></i></div>
+        <div class="worry-text">山を持っているが、長年管理できていない</div>
+      </div>
+      <div class="worry-item">
+        <div class="worry-check"><i class="ti ti-check"></i></div>
+        <div class="worry-text">親から相続した山をどうすればよいかわからない</div>
+      </div>
+      <div class="worry-item">
+        <div class="worry-check"><i class="ti ti-check"></i></div>
+        <div class="worry-text">木が大きくなりすぎて隣地や道路が心配</div>
+      </div>
+      <div class="worry-item">
+        <div class="worry-check"><i class="ti ti-check"></i></div>
+        <div class="worry-text">費用がかかりそうで、相談しにくい</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 相談の流れ -->
+  <section class="flow reveal">
+    <div class="sec-label">ご相談の流れ</div>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <h3>フォームでお問い合わせ</h3>
+          <p>お名前・ご連絡先・お悩みの概要をご記入ください。</p>
+          <div class="flow-note"><i class="ti ti-info-circle" style="font-size:11px"></i> 費用は一切かかりません</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <h3>担当者よりご連絡</h3>
+          <p>内容を確認の上、数営業日以内にメールまたはお電話でご連絡します。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <h3>現地確認・お見積もり</h3>
+          <p>ご都合に合わせて現地を確認し、最適なプランをご提案します。</p>
+          <div class="flow-note"><i class="ti ti-info-circle" style="font-size:11px"></i> ご提案のみで終了も可能です</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-content">
+          <h3>ご契約・作業開始</h3>
+          <p>ご納得いただけたらご契約・作業開始。継続的にサポートします。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- お問い合わせフォーム -->
+  <section class="form-sec reveal" id="contact-form">
+    <div class="form-sec-head">
+      <div class="sec-label">お問い合わせフォーム</div>
+      <h2>まずは、<br><em>ご相談ください。</em></h2>
+      <p>70年の経験を持つスタッフが、丁寧にお答えします。</p>
+    </div>
+
+    <form class="form-wrap" id="mainForm" novalidate>
+
+      <!-- 基本情報 -->
+      <div class="form-section-title">基本情報</div>
+
+      <div class="form-group">
+        <label class="form-label" for="name">お名前 <span class="form-required">必須</span></label>
+        <input class="form-input" type="text" id="name" name="name" placeholder="例：山田 太郎" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="kana">ふりがな <span class="form-required">必須</span></label>
+        <input class="form-input" type="text" id="kana" name="kana" placeholder="例：やまだ たろう" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="email">メールアドレス <span class="form-required">必須</span></label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="例：yamada@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="tel">ご連絡先 <span class="form-required">必須</span></label>
+        <input class="form-input" type="tel" id="tel" name="tel" placeholder="例：090-XXXX-XXXX（携帯可）" required>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- 山林について -->
+      <div class="form-section-title">山林について</div>
+
+      <div class="form-group">
+        <label class="form-label" for="location">山林の場所 <span class="form-required">必須</span></label>
+        <input class="form-input" type="text" id="location" name="location" placeholder="例：大隅半島・○○町など、わかる範囲で" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="address">お住まいの地域 <span class="form-optional">任意</span></label>
+        <input class="form-input" type="text" id="address" name="address" placeholder="例：鹿屋市・垂水市など">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="species">主な樹種 <span class="form-optional">任意</span></label>
+        <input class="form-input" type="text" id="species" name="species" placeholder="例：杉・檜・雑木など、わかる範囲で">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="area">おおよその広さ <span class="form-optional">任意</span></label>
+        <input class="form-input" type="text" id="area" name="area" placeholder="例：約1ha、○○アールなど、わかる範囲で">
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- ご相談内容 -->
+      <div class="form-section-title">ご相談内容</div>
+
+      <div class="form-group">
+        <label class="form-label" for="category">ご相談の種類 <span class="form-required">必須</span></label>
+        <select class="form-select" id="category" name="category" required>
+          <option value="" disabled selected>ご相談の種類を選んでください</option>
+          <option value="management">山林の管理・伐採について</option>
+          <option value="reforestation">再造林・保育管理について</option>
+          <option value="inheritance">相続した山林の活用について</option>
+          <option value="other">その他</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="message">詳細・ご要望 <span class="form-optional">任意</span></label>
+        <textarea class="form-textarea" id="message" name="message" placeholder="現在の状況やお困りのことを、わかる範囲でご記入ください。"></textarea>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- ファイル添付 -->
+      <div class="form-section-title">書類の添付</div>
+
+      <div class="form-group">
+        <label class="form-label">公的書類の添付 <span class="form-optional">任意</span></label>
+        <div class="form-file-box" id="fileBox" onclick="document.getElementById('fileInput').click()">
+          <div class="form-file-icon"><i class="ti ti-paperclip"></i></div>
+          <div class="form-file-main" id="fileName">ファイルを選択してください</div>
+          <div class="form-file-sub">課税証明・登記・森林簿など<br>お手元にあれば添付ください</div>
+          <div class="form-file-btn"><i class="ti ti-upload" style="font-size:13px"></i> ファイルを選ぶ</div>
+          <div class="form-file-note">PDF・JPG・PNG対応 / 1ファイル10MBまで<br>複数ファイルはZIPにまとめてください</div>
+        </div>
+        <input type="file" id="fileInput" class="form-file-input" name="attachment" accept=".pdf,.jpg,.jpeg,.png,.zip">
+      </div>
+
+      <div class="privacy-note">
+        お送りいただいた個人情報は、お問い合わせへの対応のみに使用し、第三者への提供は行いません。詳しくは<a href="#">プライバシーポリシー</a>をご確認ください。
+      </div>
+
+      <button type="submit" class="form-submit">
+        <i class="ti ti-send"></i>
+        送信する
+      </button>
+      <p class="form-submit-note">送信後、数営業日以内にご連絡いたします</p>
+
+    </form>
+
+    <!-- 送信完了メッセージ -->
+    <div class="form-success" id="formSuccess">
+      <i class="ti ti-circle-check"></i>
+      <h3>送信が完了しました</h3>
+      <p>お問い合わせありがとうございます。<br>内容を確認の上、数営業日以内にご連絡いたします。</p>
+    </div>
+
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">大隅<span>林業</span></div>
+    <ul class="footer-nav">
+      <li><a href="about.html">私たちについて</a></li>
+      <li><a href="business.html">事業紹介</a></li>
+      <li><a href="landowners.html">山主のみなさまへ</a></li>
+      <li><a href="community.html">地域の取り組み</a></li>
+      <li><a href="niketo/index.html">niketo</a></li>
+      <li><a href="company.html">会社情報</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+    <div class="footer-copy">© 2025 ○○林業株式会社. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Nav
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+    // Hamburger
+    const ham = document.getElementById('navHam');
+    const menu = document.getElementById('mobileMenu');
+    ham.addEventListener('click', () => {
+      ham.classList.toggle('open');
+      menu.classList.toggle('open');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      ham.classList.remove('open');
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    }));
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.08 }).observe ? document.querySelectorAll('.reveal').forEach(el => {
+      new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+      }, { threshold: 0.08 }).observe(el);
+    }) : reveals.forEach(el => el.classList.add('visible'));
+
+    // File input label
+    document.getElementById('fileInput').addEventListener('change', function() {
+      const name = this.files[0] ? this.files[0].name : 'ファイルを選択してください';
+      document.getElementById('fileName').textContent = name;
+      if (this.files[0]) {
+        document.getElementById('fileBox').style.borderColor = 'var(--sage)';
+        document.getElementById('fileBox').style.background = '#f4faf6';
+      }
+    });
+
+    // Form submit
+    document.getElementById('mainForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // バリデーション
+      const required = this.querySelectorAll('[required]');
+      let valid = true;
+      required.forEach(field => {
+        if (!field.value.trim()) {
+          field.style.borderColor = '#c0392b';
+          valid = false;
+        } else {
+          field.style.borderColor = '';
+        }
+      });
+      if (!valid) {
+        const first = this.querySelector('[required]:invalid, [required][style*="c0392b"]');
+        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      // 送信成功（実際はサーバーへ送信）
+      this.style.display = 'none';
+      document.getElementById('formSuccess').classList.add('show');
+      window.scrollTo({ top: document.getElementById('contact-form').offsetTop - 80, behavior: 'smooth' });
+    });
+
+    // Reset border on input
+    document.querySelectorAll('.form-input, .form-select').forEach(el => {
+      el.addEventListener('input', () => el.style.borderColor = '');
+    });
+  </script>
+
+</body>
+</html>

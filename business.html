@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>事業紹介 | ○○林業株式会社</title>
+  <meta name="description" content="山林事業・木工事業・櫨事業。大隅半島で70年、三つの事業で山と人をつなぎます。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <style>
+    :root {
+      --ink: #141f14;
+      --forest: #1e3a24;
+      --moss: #2d5a3d;
+      --sage: #4a8c5c;
+      --sage-light: #6aaa7a;
+      --cream: #f7f4ef;
+      --offwhite: #faf8f4;
+      --white: #ffffff;
+      --border: #e2ddd6;
+      --border-dark: #c8c2b8;
+      --gold: #b89a52;
+      --gold-light: #d4b878;
+      --amber: #8a5a1a;
+      --amber-light: #c4842a;
+      --haze-deep: #5c3310;
+      --haze-mid: #8b4f1a;
+      --haze-bright: #b8722a;
+      --haze-pale: #f5e8d8;
+      --text-main: #1a2618;
+      --text-sub: #4a5e46;
+      --text-muted: #8a9e86;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text-main); background: var(--offwhite); -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== Navigation ===== */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: var(--white); border-bottom: 1px solid var(--border); transition: box-shadow .3s; }
+    .nav.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,.06); }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: .1em; color: var(--ink); }
+    .nav-logo span { color: var(--sage); font-style: italic; }
+    .nav-menu { display: none; gap: 28px; list-style: none; }
+    .nav-menu a { font-size: 12px; letter-spacing: .08em; color: var(--text-sub); transition: color .2s; }
+    .nav-menu a:hover, .nav-menu a.active { color: var(--sage); }
+    .nav-ham { display: flex; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav-ham span { display: block; height: 1px; border-radius: 1px; background: var(--ink); transition: transform .3s, opacity .3s; }
+    .nav-ham span:nth-child(1) { width: 22px; }
+    .nav-ham span:nth-child(2) { width: 16px; }
+    .nav-ham span:nth-child(3) { width: 22px; }
+    .nav-ham.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); width: 22px; }
+    .nav-ham.open span:nth-child(2) { opacity: 0; }
+    .nav-ham.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); width: 22px; }
+
+    /* ===== Mobile Menu ===== */
+    .mobile-menu { position: fixed; top: 57px; left: 0; right: 0; bottom: 0; z-index: 99; background: var(--white); padding: 32px 24px; transform: translateX(100%); transition: transform .35s cubic-bezier(.4,0,.2,1); overflow-y: auto; }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu ul { list-style: none; display: flex; flex-direction: column; }
+    .mobile-menu li { border-bottom: 1px solid var(--border); }
+    .mobile-menu a { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; font-size: 15px; letter-spacing: .06em; color: var(--text-main); }
+    .mobile-menu a i { font-size: 14px; color: var(--text-muted); }
+
+    /* ===== Breadcrumb ===== */
+    .breadcrumb { display: flex; align-items: center; gap: 6px; padding: 10px 24px; background: var(--white); border-bottom: 1px solid var(--border); margin-top: 57px; }
+    .bc { font-size: 10px; color: var(--text-muted); letter-spacing: .04em; }
+    .bc.current { color: var(--text-sub); }
+    .bc-sep { font-size: 10px; color: var(--border-dark); }
+
+    /* ===== Anchor Nav ===== */
+    .anchor-nav { display: flex; background: var(--white); border-bottom: 1px solid var(--border); overflow-x: auto; position: sticky; top: 57px; z-index: 50; -webkit-overflow-scrolling: touch; }
+    .anchor-nav::-webkit-scrollbar { display: none; }
+    .anchor-item { flex-shrink: 0; padding: 12px 18px; font-size: 11px; letter-spacing: .06em; color: var(--text-muted); border-bottom: 2px solid transparent; white-space: nowrap; cursor: pointer; transition: color .2s, border-color .2s; }
+    .anchor-item.forest { color: var(--sage); border-bottom-color: var(--sage); font-weight: 500; }
+    .anchor-item.wood { color: var(--amber-light); border-bottom-color: var(--amber-light); font-weight: 500; }
+    .anchor-item.haze { color: var(--haze-bright); border-bottom-color: var(--haze-bright); font-weight: 500; }
+
+    /* ===== Page Hero ===== */
+    .page-hero { background: var(--forest); padding: 48px 24px 40px; position: relative; overflow: hidden; }
+    .page-hero-texture { position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 48px, rgba(255,255,255,.012) 48px, rgba(255,255,255,.012) 49px), repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(255,255,255,.012) 48px, rgba(255,255,255,.012) 49px); }
+    .page-hero-eyebrow { position: relative; font-size: 8px; letter-spacing: .25em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .page-hero-eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--gold); }
+    .page-hero h1 { position: relative; font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 8vw, 40px); font-weight: 300; color: #f0ede8; line-height: 1.2; letter-spacing: -.01em; }
+    .page-hero h1 em { font-style: italic; color: var(--gold-light); }
+
+    /* ===== Section Label ===== */
+    .sec-label { font-size: 8px; letter-spacing: .22em; color: var(--text-muted); text-transform: uppercase; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .sec-label.amber { color: rgba(138,90,26,.6); }
+    .sec-label.amber::after { background: rgba(184,114,42,.2); }
+    .sec-label.haze-col { color: rgba(184,114,42,.6); }
+    .sec-label.haze-col::after { background: rgba(184,114,42,.15); }
+
+    /* ===== Section Divider ===== */
+    .sec-divider { height: 8px; background: var(--offwhite); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    /* ===== Biz Hero ===== */
+    .biz-hero { width: 100%; height: 220px; display: flex; align-items: flex-end; padding: 18px 24px; position: relative; overflow: hidden; }
+    .biz-hero.forest { background: linear-gradient(160deg, #0e1c10 0%, #1e3a24 50%, #2d5a3d 100%); }
+    .biz-hero.wood { background: linear-gradient(160deg, #1c0e06 0%, #3a2010 50%, #5a3818 100%); }
+    .biz-hero.haze { background: linear-gradient(160deg, #2a1200 0%, #5c3310 45%, #8b4f1a 100%); }
+    .biz-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35; mix-blend-mode: luminosity; }
+    .biz-hero-hint { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 9px; letter-spacing: .15em; color: rgba(255,255,255,.15); text-transform: uppercase; text-align: center; }
+    .biz-hero-content { position: relative; z-index: 1; width: 100%; }
+    .biz-hero-num { font-family: 'Cormorant Garamond', serif; font-size: 11px; font-weight: 300; letter-spacing: .15em; opacity: .55; margin-bottom: 4px; }
+    .biz-hero-num.forest { color: #9FE1CB; }
+    .biz-hero-num.wood { color: #FAC775; }
+    .biz-hero-num.haze { color: #e8c090; }
+    .biz-hero h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; line-height: 1.15; letter-spacing: -.01em; }
+    .biz-hero h2.forest { color: #f0ede8; }
+    .biz-hero h2.wood { color: #faf0e0; }
+    .biz-hero h2.haze { color: #fdf0e4; }
+    .biz-hero-tag { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; font-size: 8px; letter-spacing: .14em; border: 1px solid; border-radius: 2px; padding: 2px 8px; text-transform: uppercase; }
+    .biz-hero-tag.forest { color: #9FE1CB; border-color: rgba(159,225,203,.3); }
+    .biz-hero-tag.wood { color: #FAC775; border-color: rgba(250,199,117,.3); }
+    .biz-hero-tag.haze { color: #e8c090; border-color: rgba(232,192,144,.3); }
+
+    /* ===== Biz Body ===== */
+    .biz-body { padding: 32px 24px 36px; background: var(--white); }
+    .biz-body.cream { background: var(--cream); }
+    .biz-body.haze-bg { background: #fdf8f2; }
+    .biz-lead { font-size: 13px; line-height: 1.9; color: var(--text-sub); font-weight: 300; margin-bottom: 28px; }
+
+    /* ===== Zigzag ===== */
+    .zigzag { display: flex; flex-direction: column; gap: 24px; margin-bottom: 28px; }
+    .zz-item { display: flex; gap: 14px; align-items: flex-start; }
+    .zz-item.rev { flex-direction: row-reverse; }
+    .zz-img {
+      width: 120px; height: 96px;
+      border-radius: 3px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .zz-img img { width: 100%; height: 100%; object-fit: cover; }
+    .zz-img.forest { background: linear-gradient(135deg, #1e3a24, #2d5a3d); }
+    .zz-img.wood { background: linear-gradient(135deg, #3a2010, #5a3818); }
+    .zz-img.haze { background: linear-gradient(135deg, #5c3310, #8b4f1a); }
+    .zz-img-hint { font-size: 7px; letter-spacing: .08em; color: rgba(255,255,255,.3); text-transform: uppercase; text-align: center; padding: 0 6px; }
+    .zz-text h3 { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; letter-spacing: .02em; }
+    .zz-text p { font-size: 12px; line-height: 1.75; color: var(--text-sub); font-weight: 300; }
+
+    /* ===== Photo Grid ===== */
+    .photo-section { margin-bottom: 28px; }
+    .photo-section-label { font-size: 8px; letter-spacing: .18em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .photo-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .photo-grid-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .photo-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .photo-card { border-radius: 3px; overflow: hidden; border: 1px solid var(--border); }
+    .photo-card-img {
+      height: 100px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .photo-card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-card-img.forest { background: linear-gradient(160deg, #1a3320, #2d5a3d); }
+    .photo-card-img.forest-alt { background: linear-gradient(160deg, #1e4028, #356644); }
+    .photo-card-img.wood { background: linear-gradient(160deg, #2c1f10, #4a3018); }
+    .photo-card-img.wood-alt { background: linear-gradient(160deg, #3a2810, #5a4020); }
+    .photo-card-img.haze { background: linear-gradient(160deg, #4a2a08, #7a4518); }
+    .photo-card-img.haze-alt { background: linear-gradient(160deg, #5c3310, #8b5020); }
+    .photo-card-img-hint { font-size: 7px; letter-spacing: .1em; color: rgba(255,255,255,.25); text-transform: uppercase; text-align: center; padding: 0 8px; line-height: 1.6; }
+    .photo-card-caption { padding: 7px 10px; background: var(--white); font-size: 10px; color: var(--text-muted); font-weight: 300; border-top: 1px solid var(--border); }
+    .photo-card-caption.cream { background: var(--cream); }
+    .photo-card-caption.haze-bg { background: #fdf8f2; }
+
+    /* ===== Text Link ===== */
+    .text-link { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .1em; color: var(--sage); border-bottom: 1px solid rgba(74,140,92,.25); padding-bottom: 2px; transition: color .2s, border-color .2s; }
+    .text-link:hover { color: var(--moss); border-color: rgba(74,140,92,.5); }
+    .text-link.amber { color: var(--amber-light); border-bottom-color: rgba(138,90,26,.25); }
+    .text-link.amber:hover { color: var(--amber); border-color: rgba(138,90,26,.5); }
+    .text-link.haze { color: var(--haze-bright); border-bottom-color: rgba(184,114,42,.25); }
+    .text-link.haze:hover { color: var(--haze-mid); border-color: rgba(184,114,42,.5); }
+
+    /* ===== Connector ===== */
+    .connector { display: flex; align-items: center; justify-content: center; height: 28px; position: relative; }
+    .connector.on-white { background: var(--white); }
+    .connector.on-cream { background: var(--cream); }
+    .connector::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, rgba(45,90,61,.15), rgba(45,90,61,.45)); }
+    .connector-dot { width: 8px; height: 8px; border-radius: 50%; position: relative; z-index: 1; border: 2px solid; }
+    .connector-dot.sage { background: var(--sage); border-color: var(--white); }
+    .connector-dot.dark { background: #0e1c10; border-color: var(--cream); }
+
+    /* ===== Landowner Box ===== */
+    .lo-bridge { padding: 0 24px 32px; background: var(--white); }
+    .lo-box { border: 1px solid rgba(45,90,61,.2); border-radius: 3px; overflow: hidden; }
+    .lo-box-header { background: var(--forest); padding: 12px 18px; display: flex; align-items: center; gap: 8px; }
+    .lo-box-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .lo-box-tag { font-size: 9px; letter-spacing: .18em; color: rgba(240,237,232,.6); text-transform: uppercase; }
+    .lo-box-body { background: var(--white); padding: 18px; }
+    .lo-box-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--ink); line-height: 1.35; margin-bottom: 8px; }
+    .lo-box-body p { font-size: 12px; line-height: 1.8; color: var(--text-sub); margin-bottom: 14px; font-weight: 300; }
+    .lo-link-btn { display: flex; align-items: center; justify-content: space-between; height: 44px; padding: 0 18px; background: var(--forest); border-radius: 2px; font-size: 12px; letter-spacing: .1em; color: #f0ede8; transition: background .2s; }
+    .lo-link-btn:hover { background: var(--moss); }
+
+    /* ===== niketo Box ===== */
+    .niketo-bridge { padding: 0 24px 32px; background: var(--cream); }
+    .niketo-box { border: 1px solid rgba(184,154,82,.22); border-radius: 3px; overflow: hidden; }
+    .niketo-box-header { background: #0e1c10; padding: 12px 18px; display: flex; align-items: center; gap: 8px; }
+    .niketo-box-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold-light); flex-shrink: 0; }
+    .niketo-box-tag { font-size: 9px; letter-spacing: .2em; color: rgba(212,184,120,.75); text-transform: uppercase; }
+    .niketo-box-img { width: 100%; height: 100px; background: linear-gradient(135deg, #0e1c10, #1e3a24, #141f14); display: flex; align-items: center; justify-content: center; font-size: 9px; letter-spacing: .14em; color: rgba(255,255,255,.15); text-transform: uppercase; }
+    .niketo-box-body { background: var(--white); padding: 18px; }
+    .niketo-box-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--ink); line-height: 1.3; margin-bottom: 8px; }
+    .niketo-box-body h3 em { font-style: italic; color: var(--sage); }
+    .niketo-box-body p { font-size: 12px; line-height: 1.8; color: var(--text-sub); margin-bottom: 14px; font-weight: 300; }
+    .niketo-form { display: flex; flex-direction: column; gap: 8px; }
+    .niketo-input { height: 44px; border: 1px solid var(--border-dark); border-radius: 2px; padding: 0 14px; font-size: 14px; color: var(--text-main); font-family: 'DM Sans', sans-serif; background: var(--cream); width: 100%; outline: none; transition: border-color .2s; }
+    .niketo-input:focus { border-color: var(--sage); }
+    .niketo-input::placeholder { color: var(--text-muted); font-size: 13px; }
+    .niketo-btn { height: 44px; background: #0e1c10; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 12px; letter-spacing: .12em; color: #f0ede8; cursor: pointer; transition: background .2s; }
+    .niketo-btn:hover { background: #1a3320; }
+    .niketo-note { font-size: 10px; color: var(--text-muted); text-align: center; margin-top: 8px; letter-spacing: .04em; }
+
+    /* ===== Related ===== */
+    .related { padding: 32px 24px; background: var(--offwhite); border-top: 1px solid var(--border); }
+    .related-label { font-size: 9px; letter-spacing: .18em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 14px; }
+    .related-cards { display: flex; gap: 10px; }
+    .related-card { flex: 1; background: var(--white); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; transition: box-shadow .2s; }
+    .related-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+    .related-card-img { height: 60px; }
+    .related-card-img.forest { background: linear-gradient(135deg, #1e3a24, #2d5a3d); }
+    .related-card-img.wood { background: linear-gradient(135deg, #3a2010, #5a3818); }
+    .related-card-img.haze { background: linear-gradient(135deg, #5c3310, #8b4f1a); }
+    .related-card-body { padding: 10px 12px; }
+    .related-card-body p { font-size: 11px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+    .related-card-body span { font-size: 10px; color: var(--text-muted); font-weight: 300; }
+
+    /* ===== Animations ===== */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== Footer ===== */
+    footer { background: var(--ink); padding: 40px 24px 24px; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: .1em; color: #f0ede8; margin-bottom: 24px; }
+    .footer-logo span { color: var(--sage-light); font-style: italic; }
+    .footer-nav { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-bottom: 24px; list-style: none; }
+    .footer-nav a { font-size: 11px; color: rgba(240,237,232,.4); letter-spacing: .06em; font-weight: 300; transition: color .2s; }
+    .footer-nav a:hover { color: rgba(240,237,232,.8); }
+    .footer-copy { font-size: 10px; color: rgba(240,237,232,.18); letter-spacing: .06em; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.06); }
+
+    /* ===== Desktop ===== */
+    @media (min-width: 768px) {
+      .nav-ham { display: none; }
+      .nav-menu { display: flex; }
+      .anchor-nav { top: 61px; }
+      .breadcrumb { margin-top: 61px; }
+      .biz-hero { height: 260px; }
+      .biz-body { padding: 40px 48px 48px; }
+      .biz-body.haze-bg { padding: 40px 48px 48px; }
+      .lo-bridge, .niketo-bridge { padding-left: 48px; padding-right: 48px; }
+      .zigzag { gap: 28px; }
+      .zz-img { width: 160px; height: 120px; }
+      .photo-grid-4 { grid-template-columns: repeat(4, 1fr); }
+      .photo-card-img { height: 120px; }
+      .related { padding: 40px 48px; }
+      footer { padding: 56px 48px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">大隅<span>林業</span></a>
+    <ul class="nav-menu">
+      <li><a href="about.html">私たちについて</a></li>
+      <li><a href="business.html" class="active">事業紹介</a></li>
+      <li><a href="landowners.html">山主のみなさまへ</a></li>
+      <li><a href="community.html">地域の取り組み</a></li>
+      <li><a href="company.html">会社情報</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+    <button class="nav-ham" id="navHam" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="about.html">私たちについて <i class="ti ti-chevron-right"></i></a></li>
+      <li><a href="business.html">事業紹介 <i class="ti ti-chevron-right"></i></a></li>
+      <li><a href="landowners.html">山主のみなさまへ <i class="ti ti-chevron-right"></i></a></li>
+      <li><a href="community.html">地域の取り組み <i class="ti ti-chevron-right"></i></a></li>
+      <li><a href="niketo/index.html">niketo <i class="ti ti-chevron-right"></i></a></li>
+      <li><a href="company.html">会社情報 <i class="ti ti-chevron-right"></i></a></li>
+      <li><a href="contact.html">お問い合わせ <i class="ti ti-chevron-right"></i></a></li>
+    </ul>
+  </div>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="index.html" class="bc">ホーム</a>
+    <span class="bc-sep">/</span>
+    <span class="bc current">事業紹介</span>
+  </div>
+
+  <!-- Anchor Nav -->
+  <div class="anchor-nav" id="anchorNav">
+    <div class="anchor-item forest" data-target="forest">山林事業</div>
+    <div class="anchor-item" data-target="wood">木工事業</div>
+    <div class="anchor-item" data-target="haze">櫨事業</div>
+  </div>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="page-hero-texture"></div>
+    <div class="page-hero-eyebrow">Our Business</div>
+    <h1>三つの事業で、<br><em>山と人をつなぐ。</em></h1>
+  </div>
+
+  <!-- ===== 01 森林事業 ===== -->
+  <section id="forest">
+    <div class="biz-hero forest">
+      <!-- <img src="images/forest-hero.jpg" alt="森林事業"> -->
+      <div class="biz-hero-hint">森林・山の写真</div>
+      <div class="biz-hero-content">
+        <div class="biz-hero-num forest">01 / Forest</div>
+        <h2 class="forest">山林事業</h2>
+        <div class="biz-hero-tag forest">山主・地主のみなさまへ</div>
+      </div>
+    </div>
+    <div class="biz-body reveal">
+      <div class="sec-label">Forest Business</div>
+      <p class="biz-lead">大隅半島の山林を守り、育てる。伐採・搬出から再造林・保育管理まで、山の一生に寄り添う事業です。</p>
+      <div class="zigzag">
+        <div class="zz-item">
+          <div class="zz-img forest">
+            <!-- <img src="images/forest-01.jpg" alt="伐採・搬出"> -->
+            <div class="zz-img-hint">伐採・搬出の写真</div>
+          </div>
+          <div class="zz-text">
+            <h3>伐採・搬出</h3>
+            <p>適切な時期に適切な木を伐り出す。長年の経験と現代技術を組み合わせた安全で効率的な作業を行います。</p>
+          </div>
+        </div>
+        <div class="zz-item rev">
+          <div class="zz-img forest">
+            <!-- <img src="images/forest-02.jpg" alt="再造林"> -->
+            <div class="zz-img-hint">再造林の写真</div>
+          </div>
+          <div class="zz-text">
+            <h3>再造林・保育管理</h3>
+            <p>伐採後の山に新たな命を植える。植栽から下刈り・間伐まで、次の世代の森を育てます。</p>
+          </div>
+        </div>
+
+      <a href="landowners.html" class="text-link">森林事業について詳しく <i class="ti ti-arrow-right" style="font-size:11px"></i></a>
+    </div>
+  </section>
+
+  <!-- 森林 → 山主 コネクター -->
+  <div class="connector on-white"><div class="connector-dot sage"></div></div>
+
+  <!-- 山主のみなさまへ -->
+  <div class="lo-bridge reveal">
+    <div class="lo-box">
+      <div class="lo-box-header">
+        <div class="lo-box-dot"></div>
+        <div class="lo-box-tag">山主・地主のみなさまへ</div>
+      </div>
+      <div class="lo-box-body">
+        <h3>山の管理に、<br>お困りではありませんか？</h3>
+        <p>相続した山林・管理できていない山・これからの山の活用など、どんなことでもご相談ください。</p>
+        <a href="landowners.html" class="lo-link-btn">山主のみなさまへ <i class="ti ti-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"></div>
+
+  <!-- ===== 02 木工事業 ===== -->
+  <section id="wood">
+    <div class="biz-hero wood">
+      <!-- <img src="images/wood-hero.jpg" alt="木工事業"> -->
+      <div class="biz-hero-hint">木工・工房の写真</div>
+      <div class="biz-hero-content">
+        <div class="biz-hero-num wood">02 / Woodcraft</div>
+        <h2 class="wood">木工事業</h2>
+        <div class="biz-hero-tag wood">屋久杉工芸品・Synpalab</div>
+      </div>
+    </div>
+    <div class="biz-body cream reveal">
+      <div class="sec-label amber">Woodcraft Business</div>
+      <p class="biz-lead">屋久杉の美しい木目と希少性を活かした工芸品の製作。伝統工芸と、日常に寄り添う新しいものづくりの2つの軸で取り組んでいます。</p>
+      <div class="zigzag">
+        <div class="zz-item">
+          <div class="zz-img wood">
+            <!-- <img src="images/wood-01.jpg" alt="屋久杉工芸品"> -->
+            <div class="zz-img-hint">屋久杉工芸品の写真</div>
+          </div>
+          <div class="zz-text">
+            <h3>屋久杉工芸品（伝統ライン）</h3>
+            <p>樹齢千年を超える屋久杉の銘木を使った工芸品。富裕層・コレクター向けに一点物を製作します。</p>
+          </div>
+        </div>
+        <div class="zz-item rev">
+          <div class="zz-img wood">
+            <!-- <img src="images/wood-02.jpg" alt="niketo"> -->
+            <div class="zz-img-hint">nikitoの写真</div>
+          </div>
+          <div class="zz-text">
+            <h3>niketo</h3>
+            <p>屋久杉の魅力を日常のインテリアへ。購入・レンタルで気軽に取り入れられる新しいラインです。</p>
+          </div>
+        
+      </div>
+       <a href="niketo/index.html" class="text-link amber">木工事業について詳しく <i class="ti ti-arrow-right" style="font-size:11px"></i></a>
+    </div>
+  </section>
+
+  <!-- 木工 → niketo コネクター -->
+  <div class="connector on-cream"><div class="connector-dot dark"></div></div>
+
+  <!-- niketo ティーザー -->
+  <div class="niketo-bridge reveal">
+    <div class="niketo-box">
+      <div class="niketo-box-header">
+        <div class="niketo-box-dot"></div>
+        <div class="niketo-box-tag">Synpalab — Coming Soon</div>
+      </div>
+      <div class="niketo-box-img">屋久杉 木目 イメージ</div>
+      <div class="niketo-box-body">
+        <h3>屋久杉を、<br><em>日常へ。</em></h3>
+        <p>銘木の域を超え、インテリアとして日常に寄り添う新しい屋久杉のかたち。購入・レンタルでお楽しみいただけます。</p>
+        <div class="niketo-form">
+          <input class="niketo-input" type="email" placeholder="メールアドレスを入力">
+          <div class="niketo-btn">先行案内を受け取る</div>
+        </div>
+        <p class="niketo-note">登録はいつでも解除できます</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"></div>
+
+  <!-- ===== 03 櫨事業 ===== -->
+  <section id="haze">
+    <div class="biz-hero haze">
+      <!-- <img src="images/haze-hero.jpg" alt="櫨事業"> -->
+      <div class="biz-hero-hint">櫨・木蝋の写真</div>
+      <div class="biz-hero-content">
+        <div class="biz-hero-num haze">03 / Haze</div>
+        <h2 class="haze">櫨事業</h2>
+        <div class="biz-hero-tag haze">日本古来の伝統素材</div>
+      </div>
+    </div>
+    <div class="biz-body haze-bg reveal">
+      <div class="sec-label haze-col">Haze Business</div>
+      <p class="biz-lead">櫨（ハゼ）の実から採れる木蝋（ハゼロウ）の生産。日本古来の伝統素材を、大隅半島の自然の恵みから現代に届けています。</p>
+      <div class="zigzag">
+        <div class="zz-item">
+          <div class="zz-img haze">
+            <!-- <img src="images/haze-01.jpg" alt="櫨の実の収穫"> -->
+            <div class="zz-img-hint">櫨の実の写真</div>
+          </div>
+          <div class="zz-text">
+            <h3>櫨の実の収穫</h3>
+            <p>秋に実る櫨の実を丁寧に収穫。大隅半島の温暖な気候が良質な実を育てます。江戸時代から続く採取の技術を今に受け継いでいます。</p>
+          </div>
+        </div>
+        <div class="zz-item rev">
+          <div class="zz-img haze">
+            <!-- <img src="images/haze-02.jpg" alt="木蝋生産"> -->
+            <div class="zz-img-hint">木蝋生産の写真</div>
+          </div>
+          <div class="zz-text">
+            <h3>木蝋（ハゼロウ）の生産</h3>
+            <p>伝統的な製法で木蝋を精製。完全植物由来の天然素材で、和ろうそく・化粧品・工芸品など幅広い用途に使われます。</p>
+          </div>
+        
+      </div>
+       <a href="contact.html" class="text-link haze">お問い合わせ <i class="ti ti-arrow-right" style="font-size:11px"></i></a>
+    </div>
+  </section>
+
+  <!-- 関連事業 -->
+  <div class="related reveal">
+    <div class="related-label">関連事業も見る</div>
+    <div class="related-cards">
+      <a href="#forest" class="related-card">
+        <div class="related-card-img forest"></div>
+        <div class="related-card-body"><p>森林事業</p><span>山林管理・再造林</span></div>
+      </a>
+      <a href="#wood" class="related-card">
+        <div class="related-card-img wood"></div>
+        <div class="related-card-body"><p>木工事業</p><span>屋久杉工芸品・Synpalab</span></div>
+      </a>
+      <a href="#haze" class="related-card">
+        <div class="related-card-img haze"></div>
+        <div class="related-card-body"><p>櫨事業</p><span>木蝋・ハゼロウ</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">大隅<span>林業</span></div>
+    <ul class="footer-nav">
+      <li><a href="about.html">私たちについて</a></li>
+      <li><a href="business.html">事業紹介</a></li>
+      <li><a href="landowners.html">山主のみなさまへ</a></li>
+      <li><a href="community.html">地域の取り組み</a></li>
+      <li><a href="niketo/index.html">niketo</a></li>
+      <li><a href="company.html">会社情報</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul>
+    <div class="footer-copy">© 2025 ○○林業株式会社. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Nav scroll shadow
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Hamburger menu
+    const ham = document.getElementById('navHam');
+    const menu = document.getElementById('mobileMenu');
+    ham.addEventListener('click', () => {
+      ham.classList.toggle('open');
+      menu.classList.toggle('open');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    });
+    menu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        ham.classList.remove('open');
+        menu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Anchor nav active
+    const anchorItems = document.querySelectorAll('.anchor-item');
+    const sections = ['forest', 'wood', 'haze'].map(id => document.getElementById(id));
+
+    anchorItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const target = document.getElementById(item.dataset.target);
+        if (target) {
+          const offset = 57 + 44;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Update active anchor on scroll
+    const anchorObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          anchorItems.forEach(item => {
+            item.classList.remove('forest', 'wood', 'haze');
+            item.style.fontWeight = '';
+          });
+          const id = entry.target.id;
+          const active = document.querySelector(`.anchor-item[data-target="${id}"]`);
+          if (active) {
+            active.classList.add(id);
+          }
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(sec => { if (sec) anchorObserver.observe(sec); });
+  </script>
+
+</body>
+</html>
